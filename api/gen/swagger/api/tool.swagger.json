@@ -16,6 +16,28 @@
     "application/json"
   ],
   "paths": {
+    "/ping": {
+      "get": {
+        "operationId": "ToolService_Ping",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ToolService"
+        ]
+      }
+    },
     "/v1/tool/hash": {
       "post": {
         "operationId": "ToolService_Hash",
@@ -50,6 +72,9 @@
     }
   },
   "definitions": {
+    "apiEmpty": {
+      "type": "object"
+    },
     "apiHashReq": {
       "type": "object",
       "properties": {

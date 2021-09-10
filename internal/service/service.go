@@ -1,6 +1,10 @@
 package service
 
-import "github.com/hatlonely/rpc-tool/api/gen/go/api"
+import (
+	"context"
+
+	"github.com/hatlonely/rpc-tool/api/gen/go/api"
+)
 
 type Options struct{}
 
@@ -13,4 +17,8 @@ func NewToolServiceWithOptions(options *Options) (*ToolService, error) {
 	return &ToolService{
 		options: options,
 	}, nil
+}
+
+func (s *ToolService) Ping(ctx context.Context, req *api.Empty) (*api.Empty, error) {
+	return &api.Empty{}, nil
 }

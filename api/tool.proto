@@ -5,7 +5,8 @@ package api;
 option go_package="github.com/hatlonely/rpc-tool/api/gen/go/api";
 
 import "google/api/annotations.proto";
-import "google/protobuf/empty.proto";
+
+message Empty {}
 
 message HashReq {
   string hash = 1;
@@ -23,6 +24,12 @@ service ToolService {
     option (google.api.http) = {
       post: "/v1/tool/hash",
       body: "*"
+    };
+  }
+
+  rpc Ping(Empty) returns (Empty) {
+    option (google.api.http) = {
+      get: "/ping"
     };
   }
 }
