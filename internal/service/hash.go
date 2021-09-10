@@ -38,7 +38,7 @@ func (s *ToolService) Hash(ctx context.Context, req *api.HashReq) (*api.HashRes,
 		}, nil
 	}
 
-	return nil, nil
+	return nil, rpcx.NewErrorf(nil, codes.InvalidArgument, "InvalidArgument.Hash", "unsupported hash type [%v]", req.Hash)
 }
 
 var hash = map[string]func(buf []byte) (string, string){
