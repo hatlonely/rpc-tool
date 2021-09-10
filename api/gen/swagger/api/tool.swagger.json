@@ -67,7 +67,10 @@
     "apiHashRes": {
       "type": "object",
       "properties": {
-        "code": {
+        "num": {
+          "type": "string"
+        },
+        "hex": {
           "type": "string"
         }
       }

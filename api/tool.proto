@@ -14,7 +14,8 @@ message HashReq {
 }
 
 message HashRes {
-  string code = 1;
+  string num = 1;
+  string hex = 2;
 }
 
 service ToolService {
