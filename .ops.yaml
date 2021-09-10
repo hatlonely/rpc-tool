@@ -9,7 +9,7 @@ dep:
 env:
   default:
     NAME: "rpc-tool"
-    IMAGE_REPOSITORY: "rpc-ops"
+    IMAGE_REPOSITORY: "rpc-tool"
     IMAGE_TAG: "$(git describe --tags | awk '{print(substr($0,2,length($0)))}')"
   dev:
     K8S_CONTEXT: "home-k8s"
