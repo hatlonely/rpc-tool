@@ -33,7 +33,7 @@ type Options struct {
 
 func main() {
 	var options Options
-	refx.Must(flag.Struct(&options))
+	refx.Must(flag.Struct(&options, refx.WithCamelName()))
 	refx.Must(flag.Parse(flag.WithJsonVal()))
 	if options.Help {
 		fmt.Println(flag.Usage())
@@ -47,7 +47,7 @@ func main() {
 	if options.ConfigPath == "" {
 		options.ConfigPath = "config/base.json"
 	}
-	cfg, err := config.NewConfigWithBaseFile(options.ConfigPath)
+	cfg, err := config.NewConfigWithBaseFile(options.ConfigPath, refx.WithCamelName())
 	refx.Must(err)
 
 	refx.Must(bind.Bind(&options, []bind.Getter{flag.Instance(), bind.NewEnvGetter(bind.WithEnvPrefix("RPC_TOOL")), cfg}, refx.WithCamelName()))
@@ -65,7 +65,7 @@ func main() {
 	svc, err := service.NewToolServiceWithOptions(&options.Service)
 	refx.Must(err)
 
-	grpcGateway, err := rpcx.NewGrpcGatewayWithOptions(&options.GrpcGateway)
+	grpcGateway, err := rpcx.NewGrpcGatewayWithOptions(&options.GrpcGateway, refx.WithCamelName())
 	refx.Must(err)
 	grpcGateway.SetLogger(infoLog, grpcLog)
 
