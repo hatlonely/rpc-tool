@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package api;
+
+option go_package="github.com/hatlonely/rpc-tool/api/gen/go/api";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+message HashReq {
+  string hash = 1;
+  string text = 2;
+  string base64 = 3;
+}
+
+message HashRes {
+  string code = 1;
+}
+
+service ToolService {
+  rpc Hash(HashReq) returns (HashRes) {
+    option (google.api.http) = {
+      post: "/v1/tool/hash",
+      body: "*"
+    };
+  }
+}
