@@ -1,9 +1,11 @@
+REGISTRY_ENDPOINT ?= docker.io
 REGISTRY_NAMESPACE ?= hatlonely
 IMAGE_TAG ?= $(shell git describe --tags | awk '{print(substr($$0,2,length($$0)))}')
 
 binary=rpc-tool
-namespace=${REGISTRY_NAMESPACE}
 repository=rpc-tool
+endpoint=${REGISTRY_ENDPOINT}
+namespace=${REGISTRY_NAMESPACE}
 version=${IMAGE_TAG}
 export GOPROXY=https://goproxy.cn
 
@@ -53,4 +55,4 @@ submodule:
 
 .PHONY: image
 image:
-	docker build --tag=${namespace}/${repository}:${version} .
+	docker build --tag=${endpoint}/${namespace}/${repository}:${version} .
