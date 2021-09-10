@@ -45,9 +45,9 @@ func main() {
 	}
 
 	if options.ConfigPath == "" {
-		options.ConfigPath = "config/app.json"
+		options.ConfigPath = "config/base.json"
 	}
-	cfg, err := config.NewConfigWithSimpleFile(options.ConfigPath)
+	cfg, err := config.NewConfigWithBaseFile(options.ConfigPath)
 	refx.Must(err)
 
 	refx.Must(bind.Bind(&options, []bind.Getter{flag.Instance(), bind.NewEnvGetter(bind.WithEnvPrefix("RPC_TOOL")), cfg}, refx.WithCamelName()))
