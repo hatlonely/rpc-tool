@@ -39,6 +39,7 @@ config:
         "marshalUseProtoNames": true,
         "marshalEmitUnpopulated": false,
         "unmarshalDiscardUnknown": true,
+        "enablePing": true,
         "enableTrace": false,
         "enableMetric": false,
         "enablePprof": false,
