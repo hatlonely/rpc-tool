@@ -17,7 +17,7 @@ env:
     PULL_SECRET_NAME: "hatlonely-pull-secret"
     REPLICA_COUNT: 2
     INGRESS_HOST: "k8s.rpc.tool.hatlonely.com"
-    SECRET_NAME: "k8s-secret"
+    SECRET_NAME: "rpc-tool-tls"
     REGISTRY_ENDPOINT: "{{.registry.aliyun.endpoint}}"
     REGISTRY_USERNAME: "{{.registry.aliyun.username}}"
     REGISTRY_PASSWORD: "{{.registry.aliyun.password}}"
