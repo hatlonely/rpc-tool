@@ -3,7 +3,6 @@ module github.com/hatlonely/rpc-tool
 go 1.16
 
 require (
-	github.com/gogo/protobuf v1.3.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.6.0
 	github.com/hatlonely/go-kit v1.0.24
 	github.com/spaolacci/murmur3 v0.0.0-20180118202830-f09979ecbc72
