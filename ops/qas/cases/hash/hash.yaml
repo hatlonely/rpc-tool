@@ -1,4 +1,4 @@
-- name: testFnv32
+- name: fnv32
   step:
     - ctx: rpcTool
       req:
@@ -11,7 +11,7 @@
         json:
           hex: "548da96f"
           num: "1418570095"
-- name: testFnv64
+- name: fnv64
   step:
     - ctx: rpcTool
       req:
@@ -24,3 +24,146 @@
         json:
           hex: "7dcf62cdb1910e6f"
           num: "9065573210506989167"
+- name: fnv128
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "fnv128"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "e1b1650f0631aef5566634b6c074ac1f"
+          num: "16262890844614405877, 6225721494403853343"
+- name: fnv32a
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "fnv32a"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "d58b3fa7"
+          num: "3582672807"
+- name: fnv64a
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "fnv64a"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "779a65e7023cd2e7"
+          num: "8618312879776256743"
+- name: fnv128a
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "fnv128a"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "6c155799fdc8eec4b91523808e7726b7"
+          num: "7788227449506557636, 13336604906580551351"
+- name: crc32
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "crc32"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "0d4a1185"
+          num: "222957957"
+- name: crc64-ecma
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "crc64-ecma"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "53037ecdef2352da"
+          num: "5981764153023615706"
+- name: crc64-iso
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "crc64-iso"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "b9cf3f572ad9ac3e"
+          num: "13388989860809387070"
+- name: adler32
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "adler32"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "1a0b045d"
+          num: "436929629"
+- name: murmur3-32
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "murmur3-32"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "5e928f0f"
+          num: "1586663183"
+- name: murmur3-64
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "murmur3-64"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "533f6046eb7f610e"
+          num: "5998619086395760910"
+- name: murmur3-128
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "murmur3-128"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "533f6046eb7f610eab97467d60eb63b1"
+          num: "5998619086395760910, 12364428806279881649"
