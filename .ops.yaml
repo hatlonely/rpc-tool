@@ -52,6 +52,10 @@ task:
           "get") cfg --camelName --inBaseFile base.json -a get | jq .;;
           "put") cfg --camelName --inBaseFile base_local.json -a put --outBaseFile base.json;;
         esac
+  qas:
+    step:
+      - sh ${DEP}/ops/tool/render.sh ops/qas ${TMP}/qas
+      - qas --test ${TMP}/qas
   helm:
     args:
       cmd:
