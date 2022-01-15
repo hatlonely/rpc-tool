@@ -22,7 +22,7 @@ message HashRes {
 service ToolService {
   rpc Hash(HashReq) returns (HashRes) {
     option (google.api.http) = {
-      post: "/v1/tool/hash",
+      post: "/v1/tool/hash"
       body: "*"
     };
   }
