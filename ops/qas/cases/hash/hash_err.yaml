@@ -1,0 +1,16 @@
+- name: fnv32
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "unknown-hash-func"
+          text: "hello world"
+      res:
+        status: 400
+        json: {
+          "status": 400,
+          "#requestID": "len(val) == 32",
+          "code": "InvalidArgument.Hash",
+          "message": "unsupported hash type [unknown-hash-func]"
+        }
