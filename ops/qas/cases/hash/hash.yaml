@@ -1,3 +1,16 @@
+- name: testFnv32
+  step:
+    - ctx: rpcTool
+      req:
+        path: "/v1/tool/hash"
+        json:
+          hash: "fnv32"
+          text: "hello world"
+      res:
+        status: 200
+        json:
+          hex: "548da96f"
+          num: "1418570095"
 - name: testFnv64
   step:
     - ctx: rpcTool
