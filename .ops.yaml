@@ -54,8 +54,7 @@ task:
         esac
   qas:
     step:
-      - sh ${DEP}/ops/tool/render.sh ops/qas ${TMP}/qas
-      - qas --test ${TMP}/qas
+      - qas -t ops/qas
   helm:
     args:
       cmd:
