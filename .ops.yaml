@@ -54,7 +54,8 @@ task:
         esac
   qas:
     step:
-      - qas -t ops/qas
+      - qas -t ops/qas --parallel --reporter json > qas.json
+      - qas --json-result qas.json --reporter html > qas.html
   helm:
     args:
       cmd:
