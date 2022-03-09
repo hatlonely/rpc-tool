@@ -21,7 +21,7 @@ build: cmd/main.go $(wildcard internal/*/*.go) Makefile vendor
 	go build -ldflags "-X 'main.Version=$$BUILD_VERSION'" -o build/bin/${NAME} cmd/main.go
 
 .PHONY: clean
-clean::
+clean:
 	rm -rf build
 
 vendor: go.mod go.sum
@@ -48,5 +48,5 @@ codegen: api/tool.proto
 	docker stop protobuf
 
 .PHONY: image
-image::
+image:
 	docker build --tag=${REGISTRY_ENDPOINT}/${REGISTRY_NAMESPACE}/${NAME}:${IMAGE_TAG} .
