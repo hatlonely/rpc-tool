@@ -48,5 +48,5 @@ codegen: api/tool.proto
 	docker stop protobuf
 
 .PHONY: image
-image:
+image::
 	docker build --tag=${REGISTRY_ENDPOINT}/${REGISTRY_NAMESPACE}/${NAME}:${IMAGE_TAG} .
