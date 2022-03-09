@@ -1,3 +1,0 @@
-[submodule "rpc-api"]
-	path = rpc-api
-	url = git@github.com:hatlonely/rpc-api.git
