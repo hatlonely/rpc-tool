@@ -1,12 +1,8 @@
+NAME ?= rpc-tool
 REGISTRY_ENDPOINT ?= docker.io
 REGISTRY_NAMESPACE ?= hatlonely
 IMAGE_TAG ?= $(shell git describe --tags | awk '{print(substr($$0,2,length($$0)))}')
 
-binary=rpc-tool
-repository=rpc-tool
-endpoint=${REGISTRY_ENDPOINT}
-namespace=${REGISTRY_NAMESPACE}
-version=${IMAGE_TAG}
 export GOPROXY=https://goproxy.cn
 
 define BUILD_VERSION
@@ -22,9 +18,10 @@ export BUILD_VERSION
 .PHONY: build
 build: cmd/main.go $(wildcard internal/*/*.go) Makefile vendor
 	mkdir -p build/bin && mkdir -p build/config
-	go build -ldflags "-X 'main.Version=$$BUILD_VERSION'" -o build/bin/${binary} cmd/main.go
+	go build -ldflags "-X 'main.Version=$$BUILD_VERSION'" -o build/bin/${NAME} cmd/main.go
 
-clean:
+.PHONY: clean
+clean::
 	rm -rf build
 
 vendor: go.mod go.sum
@@ -36,23 +33,20 @@ codegen: api/tool.proto
 	if [ ! -z "$(shell docker ps --filter name=protobuf -q)" ]; then \
 		docker stop protobuf; \
 	fi
-	docker run --name protobuf -d --rm registry.cn-shanghai.aliyuncs.com/hatlonely/protobuf:1.0.0 tail -f /dev/null
+	docker run --name protobuf -d --rm docker.io/hatlonely/protobuf:1.1.1 tail -f /dev/null
 	docker exec protobuf mkdir -p api
 	docker cp $< protobuf:/$<
-	docker cp rpc-api protobuf:/
 	docker exec protobuf bash -c "mkdir -p api/gen/go && mkdir -p api/gen/swagger"
-	docker exec protobuf bash -c "protoc -Irpc-api -I. --go_out api/gen/go --go_opt paths=source_relative $<"
-	docker exec protobuf bash -c "protoc -Irpc-api -I. --go-grpc_out api/gen/go --go-grpc_opt paths=source_relative $<"
-	docker exec protobuf bash -c "protoc -Irpc-api -I. --grpc-gateway_out api/gen/go --grpc-gateway_opt logtostderr=true,paths=source_relative $<"
-	docker exec protobuf bash -c "protoc -Irpc-api -I. --openapiv2_out api/gen/swagger --openapiv2_opt logtostderr=true $<"
-	docker cp protobuf:api/gen api
+	docker exec protobuf bash -c "protoc -I. --go_out api/gen/go --go_opt paths=source_relative $<"
+	docker exec protobuf bash -c "cp api/gen/go/$(basename $<).pb.go api"
+	docker exec protobuf bash -c "protoc -I. --gotag_out=paths=source_relative:api/gen/go $<"
+	docker exec protobuf bash -c "protoc -I. --go-grpc_out api/gen/go --go-grpc_opt paths=source_relative $<"
+	#docker exec protobuf bash -c "protoc -Irpc-api -I. --gofast_out=plugins=grpc,paths=source_relative:api/gen/go $<"
+	docker exec protobuf bash -c "protoc -I. --grpc-gateway_out api/gen/go --grpc-gateway_opt logtostderr=true,paths=source_relative $<"
+	docker exec protobuf bash -c "protoc -I. --openapiv2_out api/gen/swagger --openapiv2_opt logtostderr=true $<"
+	docker cp protobuf:/api/gen api
 	docker stop protobuf
-
-.PHONY: submodule
-submodule:
-	git submodule init
-	git submodule update
 
 .PHONY: image
 image:
-	docker build --tag=${endpoint}/${namespace}/${repository}:${version} .
+	docker build --tag=${REGISTRY_ENDPOINT}/${REGISTRY_NAMESPACE}/${NAME}:${IMAGE_TAG} .
